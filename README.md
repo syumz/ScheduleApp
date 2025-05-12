@@ -110,3 +110,7 @@
 ```java
 // 성공시 200 OK,  실패시 404 NotFound 해당 식별자의 메모가 존재하지 않는 경우
 ```
+
+## 📌 ERD
+![image](https://github.com/user-attachments/assets/80035dc4-c32b-4bc6-bf3d-259c30bc78a4)
+
