@@ -4,7 +4,9 @@ import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +23,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
 
-        Schedule schedule = new Schedule(dto.getName(), dto.getPassword(), dto.getTitle(), dto.getContents());
+        Schedule schedule = new Schedule(dto.getPassword(), dto.getName(), dto.getTitle(), dto.getContents(), dto.getCreatedAt(), dto.getUpdatedAt());
 
         return scheduleRepository.saveSchedule(schedule);
     }
@@ -30,5 +32,39 @@ public class ScheduleServiceImpl implements ScheduleService{
     public List<ScheduleResponseDto> findAllSchedules(String name, LocalDate updatedAt) {
 
         return scheduleRepository.findAllSchedules(name, updatedAt);
+    }
+
+    @Override
+    public ScheduleResponseDto findScheduleById(Long id) {
+        Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
+
+        return new ScheduleResponseDto(schedule);
+    }
+
+    @Override
+    public ScheduleResponseDto updateSchedule(Long id, String password, String name, String title, String contents) {
+
+        if(title == null || contents == null || name == null){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정할 이름, 내용, 제목을 입력해주세요");
+        }
+
+        int updatedRow = scheduleRepository.updateSchedule(id, password, name, title, contents);
+
+        if(updatedRow == 0){
+            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "id, password 가 존재하지 않습니다" + id + password);
+        }
+
+        Schedule schedule = scheduleRepository.findScheduleByIdPwOrElseThrow(id, password);
+
+        return new ScheduleResponseDto(schedule);
+    }
+
+    @Override
+    public void deleteSchedule(Long id, String password) {
+        int deleteSchedule = scheduleRepository.deleteSchedule(id, password);
+
+        if(deleteSchedule == 0){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id, password가 존재하지 않습니다" + id + password);
+        }
     }
 }

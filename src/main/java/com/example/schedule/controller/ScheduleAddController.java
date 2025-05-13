@@ -31,4 +31,26 @@ public class ScheduleAddController {
             @RequestParam(required = false) LocalDate updatedAt){
         return scheduleService.findAllSchedules(name, updatedAt);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
+        return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleRequestDto dto){
+        return new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getPassword(), dto.getName(),  dto.getTitle(), dto.getContents()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleRequestDto dto){
+        scheduleService.deleteSchedule(id, dto.getPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

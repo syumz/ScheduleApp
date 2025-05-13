@@ -12,4 +12,11 @@ public interface ScheduleRepository {
 
     List<ScheduleResponseDto> findAllSchedules(String name, LocalDate updatedAt);
 
+    Schedule findScheduleByIdOrElseThrow(Long id);
+
+    Schedule findScheduleByIdPwOrElseThrow(Long id, String password);
+
+    int updateSchedule(Long id, String password, String name, String title, String contents);
+
+    int deleteSchedule(Long id, String password);
 }
