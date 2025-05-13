@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 public class Schedule {
 
     private Long id;
+    private Long userId;
     private String password;
     private String name;
+    private String email;
     private String title;
     private String contents;
     private LocalDateTime createdAt;
@@ -28,10 +30,4 @@ public class Schedule {
         this.updatedAt = updatedAt;
     }
 
-    public Schedule(String password, String name, String title, String contents) {
-        this.password = password;
-        this.name = name;
-        this.title = title;
-        this.contents = contents;
-    }
 }

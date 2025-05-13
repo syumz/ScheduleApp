@@ -35,36 +35,36 @@ public class ScheduleServiceImpl implements ScheduleService{
     }
 
     @Override
-    public ScheduleResponseDto findScheduleById(Long id) {
-        Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
+    public ScheduleResponseDto findScheduleById(Long userId) {
+        Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(userId);
 
         return new ScheduleResponseDto(schedule);
     }
 
     @Override
-    public ScheduleResponseDto updateSchedule(Long id, String password, String name, String title, String contents) {
+    public ScheduleResponseDto updateSchedule(Long userId, String password, String name, String title, String contents) {
 
         if(title == null || contents == null || name == null){
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정할 이름, 내용, 제목을 입력해주세요");
         }
 
-        int updatedRow = scheduleRepository.updateSchedule(id, password, name, title, contents);
+        int updatedRow = scheduleRepository.updateSchedule(userId, password, name, title, contents);
 
         if(updatedRow == 0){
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "id, password 가 존재하지 않습니다" + id + password);
+            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "id, password 가 존재하지 않습니다" + userId + password);
         }
 
-        Schedule schedule = scheduleRepository.findScheduleByIdPwOrElseThrow(id, password);
+        Schedule schedule = scheduleRepository.findScheduleByIdPwOrElseThrow(userId, password);
 
         return new ScheduleResponseDto(schedule);
     }
 
     @Override
-    public void deleteSchedule(Long id, String password) {
-        int deleteSchedule = scheduleRepository.deleteSchedule(id, password);
+    public void deleteSchedule(Long userid, String password) {
+        int deleteSchedule = scheduleRepository.deleteSchedule(userid, password);
 
         if(deleteSchedule == 0){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id, password가 존재하지 않습니다" + id + password);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id, password가 존재하지 않습니다" + userid + password);
         }
     }
 }

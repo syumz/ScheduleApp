@@ -22,6 +22,7 @@ public class ScheduleAddController {
 
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
+
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
 
@@ -32,23 +33,23 @@ public class ScheduleAddController {
         return scheduleService.findAllSchedules(name, updatedAt);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
-        return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.CREATED);
+    @GetMapping("/{userId}")
+    public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long userId){
+        return new ResponseEntity<>(scheduleService.findScheduleById(userId), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{userid}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(
-            @PathVariable Long id,
+            @PathVariable Long userid,
             @RequestBody ScheduleRequestDto dto){
-        return new ResponseEntity<>(scheduleService.updateSchedule(id, dto.getPassword(), dto.getName(),  dto.getTitle(), dto.getContents()), HttpStatus.OK);
+        return new ResponseEntity<>(scheduleService.updateSchedule(userid, dto.getPassword(), dto.getName(),  dto.getTitle(), dto.getContents()), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{userid}")
     public ResponseEntity<Void> deleteSchedule(
-            @PathVariable Long id,
+            @PathVariable Long userid,
             @RequestBody ScheduleRequestDto dto){
-        scheduleService.deleteSchedule(id, dto.getPassword());
+        scheduleService.deleteSchedule(userid, dto.getPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
