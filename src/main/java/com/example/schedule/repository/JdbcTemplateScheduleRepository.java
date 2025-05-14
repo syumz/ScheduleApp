@@ -36,20 +36,25 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     @Override
     public ScheduleResponseDto saveSchedule(Schedule schedule) {
 
+        // 유저 테이블에 데이터를 삽입하기 위해 SimpleJdbcInsert 객체 생성
         SimpleJdbcInsert userInsert = new SimpleJdbcInsert(jdbcTemplate);
         userInsert.withTableName("user").usingGeneratedKeyColumns("user_id");
 
+        // 유저 테이블에 삽입할 파라미터
         Map<String, Object> userParameters = new HashMap<>();
         userParameters.put("name", schedule.getName());
         userParameters.put("email", schedule.getEmail());
         userParameters.put("created_at", LocalDateTime.now());
         userParameters.put("updated_at", LocalDateTime.now());
 
+        // 유저 테이블에 삽입 후 user_id 반환
         Number userKey = userInsert.executeAndReturnKey(new MapSqlParameterSource(userParameters));
 
+        // 스케줄 테이블에 데이터를 삽입하기 위해 SimpleJdbcInsert 객체 생성
         SimpleJdbcInsert scheduleInsert = new SimpleJdbcInsert(jdbcTemplate);
         scheduleInsert.withTableName("schedule").usingGeneratedKeyColumns("id");
 
+        // 스케줄 테이블에 삽입할 파라미터
         Map<String, Object> scheduleParameters = new HashMap<>();
         scheduleParameters.put("name", schedule.getName());
         scheduleParameters.put("user_id", userKey);
@@ -59,6 +64,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         scheduleParameters.put("created_at", LocalDateTime.now());
         scheduleParameters.put("updated_at", LocalDateTime.now());
 
+        // 유저 테이블에 삽입 후 id 반환
         Number scheduleKey = scheduleInsert.executeAndReturnKey(new MapSqlParameterSource(scheduleParameters));
 
         schedule.setCreatedAt(LocalDateTime.now());  // createdAt 설정
@@ -72,19 +78,19 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     public List<ScheduleResponseDto> findAllSchedules(String name, LocalDate updatedAt) {
         String sql = "";
 
-        if (updatedAt != null && name != null) {
+        if (updatedAt != null && name != null) { // updatedAt과 name 둘 다 값이 있을 경우
             sql = "SELECT * FROM schedule LEFT JOIN user on schedule.user_id = user.user_id WHERE DATE_FORMAT(updated_at, '%Y-%m-%d') = ? AND name =? ORDER BY schedule.updated_at DESC";
 
 
             return jdbcTemplate.query(sql, memoRowMapperV1(), updatedAt, name);
 
-        } else if (updatedAt == null && name != null) {
+        } else if (updatedAt == null && name != null) { // name 값만 있을 경우
             sql = "SELECT * FROM schedule LEFT JOIN user on schedule.user_id = user.user_id WHERE name =? ORDER BY schedule.updated_at DESC";
 
 
             return jdbcTemplate.query(sql, memoRowMapperV1(), name);
 
-        } else if(updatedAt != null && name == null){
+        } else if(updatedAt != null && name == null){ // updatedAt 값만 있을 경우
             sql = "SELECT * FROM schedule LEFT JOIN user on schedule.user_id = user.user_id WHERE name =? ORDER BY schedule.updated_at DESC";
 
             return jdbcTemplate.query(sql, memoRowMapperV1(), updatedAt);
@@ -94,26 +100,31 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     @Override
     public Schedule findScheduleByIdOrElseThrow(Long userId) {
+        // userId에 맞는 스케줄 조회
         List<Schedule> result = jdbcTemplate.query("SELECT * FROM schedule LEFT JOIN user on schedule.user_id = user.user_id WHERE user.user_id =?", memoRowMapperV2(), userId);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + userId));
     }
 
     @Override
     public Schedule findScheduleByIdPwOrElseThrow(Long userId, String password) {
+        // userId와 password 에 맞는 스케줄 조회
         List<Schedule> result = jdbcTemplate.query("SELECT * FROM schedule LEFT JOIN user on schedule.user_id = user.user_id WHERE user.user_id =? AND password =?", memoRowMapperV2(), userId, password);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + userId));
     }
 
     @Override
     public int updateSchedule(Long userId, String password, String name, String title, String contents) {
+        // userId와 password 에 맞는 스케줄 수정
         return jdbcTemplate.update("UPDATE schedule LEFT JOIN user ON schedule.user_id = user.user_id SET user.name = ?, schedule.title = ?, schedule.contents = ? where user.user_id =?", name, title, contents, userId);
     }
 
     @Override
     public int deleteSchedule(Long userid, String password) {
+        // userId와 password 에 맞는 스케줄 삭제
         return jdbcTemplate.update("DELETE schedule, user FROM schedule LEFT JOIN user ON schedule.user_id = user.user_id where user.user_id =? AND schedule.password =? ", userid, password);
     }
 
+    // ScheduleResponseDto 객체로 매핑하는 RowMapper 구현
     private RowMapper<ScheduleResponseDto> memoRowMapperV1(){
         return new RowMapper<ScheduleResponseDto>() {
 
@@ -139,6 +150,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         };
     }
 
+    // Schedule 객체로 매핑하는 RowMapper 구현
     private RowMapper<Schedule> memoRowMapperV2(){
         return new RowMapper<Schedule>() {
 
