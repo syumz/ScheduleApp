@@ -53,7 +53,7 @@ Schedule/
 
 ---
 
-## ⚙️ 프로젝트 설명
+## ⚙️ 프로젝트 설명 -- 완료 --
 ### Lv0.
 - API 명세서 작성
 - ERD 작성
@@ -147,7 +147,7 @@ Schedule/
 
 ## 📌 API 명세
 
-### 1. [POST] /api/schedules
+### 1. [POST] /schedules
 - 설명: 일정 생성하기
 - Request
 ```java
@@ -171,7 +171,7 @@ Schedule/
 }
 ```
 
-### 2. [GET] /api/schedules?updated_at=...&name=…
+### 2. [GET] /schedules?updated_at=...&name=…
 - 설명: 일정 전체 조회
 
 - Response
@@ -202,9 +202,8 @@ Schedule/
 []
 ```
 
-### 3. [GET] /api/schedules/{user_id}
+### 3. [GET] /schedules/{user_id}
 - 설명: 일정 선택 조회
-
 - Response
 ```java
 // 성공시 200 OK
@@ -220,7 +219,7 @@ Schedule/
 // 실패시 404 NotFound 해당 식별자의 메모가 존재하지 않는 경우
 ```
 
-### 4. [PATCH] /api/schedules/{id}
+### 4. [PATCH] /schedules/{user_id}
 - 설명: 일정 수정(제목, 내용, 이름만 변경)
 - Request
 ```java
@@ -249,7 +248,7 @@ Schedule/
 필수값이 없는 경우
 ```
 
-### 5. [DEL] /api/schedules/{id}
+### 5. [DEL] /schedules/{user_id}
 - 설명: 일정 삭제
 - Request
 ```java

@@ -23,9 +23,10 @@ public class Schedule {
     private LocalDateTime updatedAt;
 
     // 2. 생성자
-    public Schedule( String password, String name, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt){
+    public Schedule(String password, String name, String email, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt){
         this.password = password;
         this.name = name;
+        this.email = email;
         this.title = title;
         this.contents = contents;
         this.createdAt = createdAt;

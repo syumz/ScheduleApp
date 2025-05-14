@@ -26,7 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
 
-        Schedule schedule = new Schedule(dto.getPassword(), dto.getName(), dto.getTitle(), dto.getContents(), dto.getCreatedAt(), dto.getUpdatedAt());
+        Schedule schedule = new Schedule(dto.getPassword(), dto.getName(), dto.getEmail(), dto.getTitle(), dto.getContents(), dto.getCreatedAt(), dto.getUpdatedAt());
 
         return scheduleRepository.saveSchedule(schedule);
     }
