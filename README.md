@@ -53,8 +53,8 @@ Schedule/
 
 ---
 
-## ⚙️ 프로젝트 설명 -- 완료 --
-### Lv0.
+## ⚙️ 프로젝트 설명 
+### Lv0. -- 완료 --
 - API 명세서 작성
 - ERD 작성
 - SQL 작성
@@ -116,7 +116,7 @@ Schedule/
         1. 잘못된 정보로 조회하려고 할 때
         2. 이미 삭제된 정보를 조회하려고 할 때
 
-### Lv6. -- 진행 중 --
+### Lv6. -- 완료 --
 - null 체크 및 특정 패턴에 대한 검증 수행
   - 유효성 검사
     1. 잘못된 입력이나 요청을 미리 방지할 수 있다.
@@ -268,11 +268,11 @@ Schedule/
 
 ## 📚 TIL
 이 프로젝트를 진행하면서 배운 내용을 아래 벨로그에 정리하였습니다.
-- [Lv0 TIL 링크]()
-- [Lv1 TIL 링크]()
-- [Lv2 TIL 링크]()
-- [Lv3 TIL 링크]()
-- [Lv4 TIL 링크]()
-- [Lv5 TIL 링크]()
-- [Lv6 TIL 링크]()
+- [Lv0 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv0)
+- [Lv1 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv1)
+- [Lv2 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv2)
+- [Lv3 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv3)
+- [Lv4 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv4)
+- [Lv5 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv5)
+- [Lv6 TIL 링크](https://velog.io/@syumz/%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC-%EC%95%B1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-Lv6)
 
