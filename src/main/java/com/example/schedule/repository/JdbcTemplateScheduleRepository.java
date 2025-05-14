@@ -23,13 +23,16 @@ import java.util.Map;
 @Repository
 public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
+    // 1. 속성
     private final JdbcTemplate jdbcTemplate;
 
+    // 2. 생성자
     public JdbcTemplateScheduleRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-
+    // 3. 기능(메서드)
+    // 일정을 저장하는 메서드
     @Override
     public ScheduleResponseDto saveSchedule(Schedule schedule) {
 

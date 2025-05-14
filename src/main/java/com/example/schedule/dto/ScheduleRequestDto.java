@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Getter
 public class ScheduleRequestDto {
 
+    // 1. 속성
     private String password;
     private String name;
     private String title;

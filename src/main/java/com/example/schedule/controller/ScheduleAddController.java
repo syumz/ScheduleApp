@@ -14,18 +14,23 @@ import java.util.List;
 @RequestMapping("/schedules")
 public class ScheduleAddController {
 
+    // 1.. 속성
     private final ScheduleService scheduleService;
 
+    // 2. 생성자
     public ScheduleAddController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
     }
 
+    // 3. 기능(메서드)
+    // 스케줄 생성 메서드
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto dto) {
 
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
 
+    // 이름이나 수정일로 스케줄을 조회하는 메서드
     @GetMapping
     public List<ScheduleResponseDto> findAllSchedules(
             @RequestParam(required = false) String name,
@@ -33,11 +38,13 @@ public class ScheduleAddController {
         return scheduleService.findAllSchedules(name, updatedAt);
     }
 
+    // 유저 id로 스케줄 조회 메서드
     @GetMapping("/{userId}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long userId){
         return new ResponseEntity<>(scheduleService.findScheduleById(userId), HttpStatus.CREATED);
     }
 
+    // 스케줄 수정 메서드
     @PatchMapping("/{userid}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long userid,
@@ -45,6 +52,7 @@ public class ScheduleAddController {
         return new ResponseEntity<>(scheduleService.updateSchedule(userid, dto.getPassword(), dto.getName(),  dto.getTitle(), dto.getContents()), HttpStatus.OK);
     }
 
+    // 스케줄 삭제 메서드
     @DeleteMapping("/{userid}")
     public ResponseEntity<Void> deleteSchedule(
             @PathVariable Long userid,

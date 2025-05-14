@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Schedule {
 
+    // 1. 속성
     private Long id;
     private Long userId;
     private String password;
@@ -21,6 +22,7 @@ public class Schedule {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    // 2. 생성자
     public Schedule( String password, String name, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt){
         this.password = password;
         this.name = name;

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ScheduleResponseDto {
 
+    // 1. 속성
     private Long id;
     private Long userId;
     private String name;
@@ -21,6 +22,7 @@ public class ScheduleResponseDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
 
+    // 2. 생성자
     public ScheduleResponseDto(Schedule schedule){
         this.id = schedule.getId();
         this.userId = schedule.getUserId();

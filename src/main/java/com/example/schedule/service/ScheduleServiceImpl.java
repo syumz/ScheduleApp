@@ -14,12 +14,15 @@ import java.util.List;
 @Service
 public class ScheduleServiceImpl implements ScheduleService{
 
+    // 1. 속성
     private final ScheduleRepository scheduleRepository;
 
+    // 2. 생성자
     public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
     }
 
+    // 3. 기능(메서드)
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto dto) {
 
@@ -30,6 +33,11 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Override
     public List<ScheduleResponseDto> findAllSchedules(String name, LocalDate updatedAt) {
+        List<ScheduleResponseDto> schedules = scheduleRepository.findAllSchedules(name, updatedAt);
+
+        if (schedules.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정이 존재하지 않습니다.");
+        }
 
         return scheduleRepository.findAllSchedules(name, updatedAt);
     }
@@ -37,6 +45,7 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public ScheduleResponseDto findScheduleById(Long userId) {
         Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(userId);
+
 
         return new ScheduleResponseDto(schedule);
     }

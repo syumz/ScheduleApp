@@ -263,7 +263,7 @@ Schedule/
 ```
 
 ## 📌 ERD
-![img_1.png](img_1.png)
+![image](https://github.com/user-attachments/assets/2a3bb8d7-6e80-434c-b9e6-ac76b1c921a0)
 
 ---
 
